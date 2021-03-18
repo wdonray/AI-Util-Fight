@@ -285,7 +285,7 @@ MonoBehaviour:
   UnwalkableMask:
     serializedVersion: 2
     m_Bits: 8
-  IslandCount: 75
+  IslandCount: 90
   GridWorldSize: {x: 20, y: 20}
   NodeSize: 1
   DisplayGridGizmos: 0

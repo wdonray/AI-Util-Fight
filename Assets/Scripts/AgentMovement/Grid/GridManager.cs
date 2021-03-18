@@ -71,7 +71,7 @@ namespace Grid
             GameObject refTile = (GameObject)Instantiate(Resources.Load("GrassTile"));
             System.Random rndCount = new System.Random();
 
-            for (int x = 0; x < IslandCount; x++)
+            for (int x = 0; x <= IslandCount; x++)
             {
                 GameObject tileObj = Instantiate(refTile, transform);
 
