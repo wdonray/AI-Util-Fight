@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Grid
+namespace AgentMovement
 {
     public class GridManager : MonoBehaviour
     {
@@ -12,7 +12,7 @@ namespace Grid
         ///     
         /// </summary>
         [SerializeField]
-        private Grid Grid;
+        public static Grid Grid;
         /// <summary>
         ///     
         /// </summary>

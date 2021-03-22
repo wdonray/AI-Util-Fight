@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Grid
+namespace AgentMovement
 {
     /// <summary>
     ///     The score of each square is defined by this function f(n) = g(n) + h(n)
