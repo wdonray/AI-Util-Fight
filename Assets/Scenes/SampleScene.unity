@@ -278,17 +278,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1648577326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2360029d9011644b1cb17d4b6f9f32, type: 3}
+  m_Script: {fileID: 11500000, guid: 25f3132564849e24a9b33cb88fb438bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiles: []
-  UnwalkableMask:
-    serializedVersion: 2
-    m_Bits: 8
-  IslandCount: 90
-  GridWorldSize: {x: 20, y: 20}
-  NodeSize: 1
-  DisplayGridGizmos: 0
+  Row: 2
+  Col: 2
 --- !u!4 &1648577328
 Transform:
   m_ObjectHideFlags: 0
