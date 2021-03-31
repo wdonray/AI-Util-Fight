@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561074604a2807448aef0900ee65702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 0.5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -295,11 +295,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f3132564849e24a9b33cb88fb438bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Row: 10
+  Row: 12
   Col: 10
   BlockedChance: 10
-  WalkableTile: GrassTile
-  BlockedTile: WaterTile
+  WalkableTiles:
+  - GrassTile
+  - GrassTile-002
+  BlockedTiles:
+  - WaterTile
 --- !u!4 &1648577328
 Transform:
   m_ObjectHideFlags: 0

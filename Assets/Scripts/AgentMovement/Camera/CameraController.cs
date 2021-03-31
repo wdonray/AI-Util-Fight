@@ -14,6 +14,8 @@ namespace AgentMovement
         public float Speed;
 
         private Camera _camera;
+        private bool isCameraMoving;
+
         private void Awake()
         {
             _camera = gameObject.GetComponent<Camera>();
@@ -21,18 +23,23 @@ namespace AgentMovement
 
         private IEnumerator SmoothCameraMovement(Vector2 target)
         {
-            //Never stops
-            while (transform.position.x != target.x || transform.position.y != target.y)
+            while (!Utils.IsDistanceInRage(new Vector2(transform.position.x, transform.position.y), target, .10f))
             {
+                isCameraMoving = true;
                 var pos = Utils.SmoothMovement(Speed, Time.deltaTime, transform.position, target);
                 transform.position = new Vector3(pos.x, pos.y, transform.position.z);
                 yield return null;
             }
+            isCameraMoving = false;
         }
 
         public void StartCameraMovement(Vector2 target)
         {
-            StartCoroutine(SmoothCameraMovement(target));
+            if (!isCameraMoving) {
+                StartCoroutine(SmoothCameraMovement(target));
+                return;
+            }
+            StopAllCoroutines();
         }
     }
 }
