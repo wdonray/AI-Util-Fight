@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GlobalUtils
 {
-    class Utils : MonoBehaviour
+    class Utils
     {
         /// <summary>
         ///     Returns a random vector3
@@ -23,6 +23,21 @@ namespace GlobalUtils
         {
             float angleRad = angle * (Mathf.PI / 180f);
             return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
+        }
+
+        /// <summary>
+        ///     Lerping movement
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <param name="timePerStep"></param>
+        /// <param name="agent"></param>
+        /// <param name="target"></param>
+        public static Vector2 SmoothMovement(float speed, float timePerStep, Vector2 agentPos, Vector2 targetPos)
+        {
+            float interpolation = speed * timePerStep;
+            agentPos.x = Mathf.Lerp(agentPos.x, targetPos.x, interpolation);
+            agentPos.y = Mathf.Lerp(agentPos.y, targetPos.y, interpolation);
+            return agentPos;
         }
     }
 }
