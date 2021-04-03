@@ -17,15 +17,9 @@ namespace AgentMovement
         internal Stack<Node> OpenList { get => openList; set => openList = value; }
         internal Stack<Node> ClosedList { get => closedList; set => closedList = value; }
 
-        private List<Node> ReconstructPath(Node current)
+        private List<Node> ReconstructPath(Stack<Node> closedList)
         {
-            Stack<Node> path = new Stack<Node>();
-            while (current != null)
-            {
-                path.Push(current);
-                current = current.Parent;
-            }
-            return path.Reverse().ToList();
+            return closedList.Reverse().ToList();
         }
 
         public List<Node> AStar(Grid grid, Node startNode, Node endNode) {
@@ -44,30 +38,38 @@ namespace AgentMovement
                 Node currentNode = OpenList.Pop();
                 ClosedList.Push(currentNode);
 
-                if (currentNode == EndNode)
-                    return ReconstructPath(currentNode);
+                if (currentNode.Equals( EndNode ))
+                    return ReconstructPath(closedList);
 
-                Stack<Node> children = new Stack<Node>();
+                Stack<Node> neighbors = new Stack<Node>();
 
+                //Grab Neighbors
                 adjacentSquares.ForEach(newPos => {
-                    var nodePos = new Vector2(currentNode.X + newPos.x, currentNode.Y + newPos.y);
-                    if (!grid.Nodes.Find(node => new Vector2(node.X, node.Y) == newPos).Walkable)
-                        return;
+                    var node = grid.Nodes.Find(node => new Vector2(currentNode.X + newPos.x, currentNode.Y + newPos.y) == newPos);
+                    if (node.Walkable == false) return;
                     var newNode = new Node(currentNode);
-                    children.Push(newNode);
+                    neighbors.Push(newNode);
                 });
 
-                children.ToList().ForEach(child => {
-                    if (!ClosedList.Contains(child)) return;
+                Node cheapestNode = null;
+                //Push Cheapest
+                neighbors.ToList().ForEach(child => {
+                    if (ClosedList.Contains(child)) return;
                     child.DistCurrentStart = currentNode.DistCurrentStart + 1;
                     child.Heuristic = (child.X - EndNode.X) ^ 2 + (child.Y - EndNode.Y) ^ 2;
 
-                    if (OpenList.ToList().Find(openNode => child == openNode && child.DistCurrentStart > openNode.DistCurrentStart) != null)
-                        OpenList.Push(child);
-                });
+                    // I hate this block
+                    if (cheapestNode == null){
+                        cheapestNode = child;
+                    }
+                    else if (child.DistCurrentStart > cheapestNode.DistCurrentStart){
+                        cheapestNode = child;
+                    }
 
+                    if (cheapestNode != null && !OpenList.Contains(cheapestNode)) OpenList.Push(cheapestNode);
+                });
             }
-            return OpenList.ToList();
+            return ClosedList.ToList();
         }
     }
 }

@@ -26,7 +26,9 @@ namespace AgentMovement
             cameraController.StartCameraMovement(new Vector2(mainGrid.RowLength / 2, mainGrid.ColLength / 2));
 
             Pathfinding pathfinding = new Pathfinding();
-            //pathfinding.AStar(mainGrid, mainGrid.Nodes[0], mainGrid.Nodes[mainGrid.Nodes.Count - 1]).ForEach(item => tiles.Contains(item)));
+            mainGrid.Nodes[0].NodeObject.GetComponent<SpriteRenderer>().color = Color.green;
+            mainGrid.Nodes[mainGrid.Nodes.Count - 1].NodeObject.GetComponent<SpriteRenderer>().color = Color.red;
+            pathfinding.AStar(mainGrid, mainGrid.Nodes[0], mainGrid.Nodes[mainGrid.Nodes.Count - 1]).ForEach(item => item.NodeObject.SetActive(false));
         }
 
         private void InsantiateGrid(List<string> walkableTiles, List<string> blockedTiles)
@@ -37,6 +39,7 @@ namespace AgentMovement
             {
                 var tileName = node.Walkable ? Utils.GetRandomItemFromList(walkableTiles) : Utils.GetRandomItemFromList(blockedTiles);
                 var tileGO = Instantiate(Resources.Load(tileName), new Vector3(node.X, node.Y), Quaternion.identity, transform) as GameObject;
+                node.NodeObject = tileGO;
                 tiles.Add(tileGO);
             });
         }
